@@ -1,0 +1,6 @@
+#build directory
+build/
+
+#object and executable
+*.o
+tin
