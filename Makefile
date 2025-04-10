@@ -1,5 +1,5 @@
 cc = gcc
-target=mainfun.o func.o
+target=mainfun.o func.o info.o
 
 tin : ${target}
 	${cc} ${target} -o tin
@@ -9,6 +9,9 @@ mainfun.o : mainfun.c
 
 func.o : func.c
 	gcc -c func.c
+
+info.o : info.c
+	gcc -c info.c
 
 clean:
 	@echo "cleaning build files...."

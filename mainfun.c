@@ -14,9 +14,7 @@ void main(int argc,char*argv[]){
 
     if(argv[1][0]=='-'){
         if(argv[1][1]=='v'){
-            printf("TemplaTin (Template Creator Shell Utility by matthatter693)\n");
-            printf("Version 1.0\n");
-            printf("This is a free software, redistributable under GPL V2.0\nFor queries <pra060903.@gmail.com>\n");
+            pr_info();
             return;
         }
     }
