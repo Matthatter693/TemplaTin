@@ -1,11 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include"header.h"
+#include<string.h>
 
 void main(int argc,char*argv[]){
 
     //checking for the argument semantics
-    if(argc!=2){
+    if(argc>3){
         printf("Wrong usage:\n");
         return;
     }
@@ -19,7 +20,7 @@ void main(int argc,char*argv[]){
         }
     }
 
-    FILE *fp,*fp1;
+    FILE *fp=NULL,*fp1=NULL;
 
     //file existence check
     if(fopen(argv[1],"r")){
@@ -28,10 +29,23 @@ void main(int argc,char*argv[]){
     }
 
     //creating a file in case of its absence
-    fp1=fopen(argv[1],"w");
-    fp=fopen("templates/cpptemp","r");
+    if(strstr(argv[1],"cpp")){
+        printf("reading cpptemp..\n");
+        fp=fopen("../templates/cpptemp","r");
+        if(fp==NULL){
+            printf("Template not present..\n");
+        }
+    }else{
+        printf("bad arguments..\n");
+        return;
+    }
+    if(fp==NULL){
+    printf("fp is buggy\n");
+    return;
+    }
+    fp1=fopen(argv[2],"w");
     word_copy(fp,fp1);
-    printf("The file %s is created\n",argv[1]);
+    printf("The file %s is created\n",argv[2]);
     fclose(fp);
     fclose(fp1);
 

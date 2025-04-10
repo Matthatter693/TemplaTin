@@ -1,5 +1,5 @@
 cc = gcc
-target=mainfun.o func.o info.o
+target= mainfun.o func.o info.o
 
 tin : ${target}
 	${cc} build/*.o -o build/tin
