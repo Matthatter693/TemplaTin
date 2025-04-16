@@ -1,4 +1,4 @@
-# TemplaTin V1.1
+# TemplaTin V1.1.1
 
 TemplaTin is a basic template creator tool under development. This utility will create a template file that you provide in any locations and it's completely language agnostic (i.e) you can create basic template files that will speed up your development process!
 
@@ -8,20 +8,20 @@ TemplaTin is a basic template creator tool under development. This utility will 
 - Uses Standard Library functions
 - Easy to use
 
-## What's new with V1.1?
+## What's new with V1.1.1?
 
-- Added C support
+- Code optimizations done for memory access
 - Added support for multiple file creation
-- subtle changes in syntax and variables
+- Organized Sources
 
 ## Installation
 
 - Right as of now as it is in testing you can test it by cloning the repo and run
 
-            ``` make ```
+``` make ```
 
 - To clean up everything run
 
-            ```make clean```
+```make clean```
 
 
