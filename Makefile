@@ -17,3 +17,5 @@ clean:
 	@echo "cleaning build files...."
 	rm -f build/*.o
 	rm -f build/tin
+	rm -f build/*.c
+	rm -f build/*.cpp
