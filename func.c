@@ -1,13 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
-
+#include"header.h"
 
 //print function for checking buffer data
 
-void print(char **FILE_BUF,int Rows)
+void print(char **FILE_BUF,struct info FILE_INFO)
 {
     int i;
-    for(i=0;i<Rows;i++)
+    for(i=0;i<FILE_INFO.Newline_Count;i++)
     {
         printf("%s",FILE_BUF[i]);
     }
@@ -15,35 +15,44 @@ void print(char **FILE_BUF,int Rows)
 
 //function for buffer memory deallocation
 
-void FILE_BUF_DEALLOC(char **FILE_BUF,int Rows)
+void FILE_BUF_DEALLOC(char **FILE_BUF,struct info FILE_INFO)
 {
     int i;
-    for(int i=0;i<Rows;i++)
+    for(int i=0;i<FILE_INFO.Newline_Count;i++)
         free(FILE_BUF[i]);
     free(FILE_BUF);
 }
 
 //function for buffer memory allocation
 
-char ** FILE_BUF_ALLOC(int Rows,int Cols)
+char ** FILE_BUF_ALLOC(struct info FILE_INFO)
 {
     char ** FILE_BUF;
-    int i,j;
-    FILE_BUF=malloc(sizeof(char *)*Rows);
-    for(i=0;i<Rows;i++)
-        FILE_BUF[i]=malloc(Cols+1);
+    int i;
+    FILE_BUF=malloc(sizeof(char *)*FILE_INFO.Newline_Count);
+    if(FILE_BUF==NULL){
+        printf("Memory allocation failed\n");
+        return NULL;
+    }
+    for(i=0;i<FILE_INFO.Newline_Count;i++){
+        FILE_BUF[i]=malloc(FILE_INFO.Final_Count+1);
+        if(FILE_BUF[i]==NULL)
+        {
+            printf("Memory allocation failed inside\n");
+            return NULL;
+        }
+    }
     return FILE_BUF;
 }
 
-//Function for copying text from file into the buffer and to the target
 
-void  word_copy(FILE *fp,FILE *fp1)
+//Function that counts the no of lines in the file for Memalloc
+
+struct info file_info(FILE *fp)
 {
+    //Calculating no of lines and maximum line size
 
     int Reg_Count=0,Final_Count=0,Newline_Count=0,CHARBUF;
-
-//Calculating buffer size and lines for DMA
-
     while((CHARBUF=fgetc(fp))!=EOF)
     {
         Reg_Count++;
@@ -59,23 +68,31 @@ void  word_copy(FILE *fp,FILE *fp1)
     } 
     rewind(fp);
 
-    //Memory Allocation
+    //packing info into a struct and passing it
+    struct info count;
+    count.Newline_Count=Newline_Count;
+    count.Final_Count=Final_Count;
+    return count;
+}
 
-    char **FILE_BUF = FILE_BUF_ALLOC(Newline_Count,Final_Count);
 
-    //Copying template content into the buffer
+//Function for copying text from file into the buffer and to the target
 
-    for(int i=0;fgets(FILE_BUF[i],Final_Count+1,fp);i++);
+void word_copy(FILE *fp,char ** FILE_BUF,struct info temp)
+{
+    for(int i=0;fgets(FILE_BUF[i],temp.Final_Count+1,fp);i++);
     rewind(fp);
+}
 
-    //Writing Buffer content into target
-
-    printf("Creating the template file\n");
-    for(int i=0;i<Newline_Count;i++)
+//Function that writes into the file from the buffer
+void word_write(FILE * fp1,char ** FILE_BUF,struct info temp)
+{
+    //printf("Writing the template file\n");
+    for(int i=0;i<temp.Newline_Count;i++)
     {
         fprintf(fp1,"%s",FILE_BUF[i]);
     }
-    FILE_BUF_DEALLOC(FILE_BUF,Newline_Count);
+    rewind(fp1);
 }
 
 
