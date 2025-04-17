@@ -13,7 +13,7 @@ TemplaTin is a basic template creator tool under development. This utility will 
 - Code optimizations done for memory access
 - Added support for multiple file creation
 - Organized Sources
-- Added Config File support for Templatin
+- Added Config File support for TemplaTin
 
 ## Installation
 
@@ -37,7 +37,7 @@ HOME
 - The following make command will create config file structures and compile the source in build directory
 
 ```
-make conf
+make conf \\For building config file structure
 make 
 ```
 
