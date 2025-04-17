@@ -31,14 +31,19 @@ char ** FILE_BUF_ALLOC(struct info FILE_INFO)
     int i;
     FILE_BUF=malloc(sizeof(char *)*FILE_INFO.Newline_Count);
     if(FILE_BUF==NULL){
-        printf("Memory allocation failed\n");
+        fprintf(stderr,"Memory allocation failed\n");
         return NULL;
     }
     for(i=0;i<FILE_INFO.Newline_Count;i++){
         FILE_BUF[i]=malloc(FILE_INFO.Final_Count+1);
         if(FILE_BUF[i]==NULL)
         {
-            printf("Memory allocation failed inside\n");
+            fprintf(stderr,"Memory allocation failed inside\n");
+            
+            //frees the previously allocated memory if failed in the middle
+
+            for(int j=i;j!=0;j--)
+                free(FILE_BUF[j]);
             return NULL;
         }
     }
