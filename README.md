@@ -18,11 +18,15 @@ TemplaTin is a basic template creator tool under development. This utility will 
 
 - Right as of now as it is in testing you can test it by cloning the repo and run
 
-``` make ```
+```
+make 
+```
 
 - Go to the build directory where all the object files and executables will be saved after compilation
 
-```cd build```
+```
+cd build
+```
 
 - You can test the utility for C and C++ extension files with the default provided templates.This will create the files in PWD..
 
@@ -30,8 +34,10 @@ TemplaTin is a basic template creator tool under development. This utility will 
 ./tin file.c \\For C
 ./tin file.cpp \\For C++
 ```
-- To clean up everything run
+- To clean up everything in the build directory run
 
-```make clean```
+```
+make clean
+```
 
 
