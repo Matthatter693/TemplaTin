@@ -26,9 +26,10 @@ TemplaTin is a basic template creator tool under development. This utility will 
 
 - You can test the utility for C and C++ extension files with the default provided templates.This will create the files in PWD..
 
-```./tin file.c
-   ./tin file.cpp ```
-
+```
+./tin file.c \\For C
+./tin file.cpp \\For C++
+```
 - To clean up everything run
 
 ```make clean```
