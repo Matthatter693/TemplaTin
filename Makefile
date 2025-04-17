@@ -23,7 +23,7 @@ clean:
 	rm -f build/*.c
 	rm -f build/*.cpp
 
-temp:
+conf:
 	@echo "Creating templates and config file"
 	mkdir -p ~/.tindir
 	cp -r templates ~/.tindir
