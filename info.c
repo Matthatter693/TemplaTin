@@ -4,7 +4,7 @@
 void pr_info(void)
 {
 printf("TemplaTin (Template Creator Shell Utility by matthatter693)\n");
-printf("Version 1.1.1\n");
+printf("Version 1.1.2\n");
 printf("This is a free software, redistributable under GPL V2.0\nFor queries <pra060903.@gmail.com>\n");
 }
 
@@ -12,7 +12,7 @@ printf("This is a free software, redistributable under GPL V2.0\nFor queries <pr
 void pr_help(void)
 {
     printf("=================================================\n");
-    printf("               TemplaTin V1.1\n");
+    printf("               TemplaTin V1.1.2\n");
     printf("=================================================\n");
     printf("USAGE:tin -[Options] [Filename with Extension]\n");
     printf("Available command options\n");
