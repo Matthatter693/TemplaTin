@@ -1,6 +1,8 @@
 #build directory
 build/
+doc-pak/
 
 #object and executable
 *.o
 tin
+description-pak
