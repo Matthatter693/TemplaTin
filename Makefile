@@ -28,3 +28,7 @@ conf:
 	mkdir -p ~/.tindir
 	cp -r templates ~/.tindir
 	cp .tinconf ~/.tinconf
+
+install:
+	install -Dm755 build/tin /usr/local/bin/tin
+
