@@ -33,7 +33,9 @@ FILE * conf_read()
     }
     else
     {
+        if(verbose==1){
         fprintf(stdout,"Conf file found in %s\n",PATH);
+        }
         free(PATH);
         return fp;
     }

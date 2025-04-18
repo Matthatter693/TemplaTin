@@ -7,6 +7,8 @@ struct info{
     int Final_Count;
 };
 
+extern int verbose;
+
 extern FILE * conf_read();
 extern char * param_read(char ** FILE_BUF,char *PARAM,struct info temp);
 extern void print(char **FILE_BUF,struct info);

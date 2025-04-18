@@ -2,37 +2,39 @@
 #include<stdlib.h>
 #include"header.h"
 #include<string.h>
+#include<unistd.h>
 
 
+int verbose=0;
 void main(int argc,char*argv[])
 {
 
-    //checking conditions for the correct argument input
 
-    if(argc<2)
+    //arg parsing
+    int c;
+    int opterr=0;
+    while((c=getopt(argc,argv,"ihv"))!=-1)
     {
-        fprintf(stderr,"The minimum argument count should be 3\n Run tin -h for more info\n");
-        return;
-    }
-
-    //adding help and version display support
-
-    if(argv[1][0]=='-')
-    {
-        if(argv[1][1]=='v')
+        switch(c)
         {
-            pr_info();
-            return;
-        }
-        else if(argv[1][1]=='h')
-        {
-            pr_help();
-            return;
-        }
-        else
-        {
-            fprintf(stderr,"Wrong options supplied\nRun tin -h for more info\n");
-            return;
+            case 'i':
+                pr_info();
+                break;
+            case 'h':
+                pr_help();
+                break;
+            case 'v':
+                verbose=1;
+                break;
+            case '?':
+                if(optopt=='v')
+                    fprintf(stderr,"the -%c flag requires arguments\n",optopt);
+                else
+                    printf("invalid arguments are supplied\n");
+                return;
+            default:
+                printf("Run tin -h for usage\n");
+                abort();
         }
     }
 
@@ -64,7 +66,7 @@ void main(int argc,char*argv[])
         return;
     }
     word_copy(CONF_FILE,CONF_FILE_BUF,CONF_INFO);
-    print(CONF_FILE_BUF,CONF_INFO);
+   // print(CONF_FILE_BUF,CONF_INFO);
     p=param_read(CONF_FILE_BUF,"TEMP_PATH",CONF_INFO);
     if(p==NULL)
     {
@@ -74,15 +76,15 @@ void main(int argc,char*argv[])
     fclose(CONF_FILE);
 
     /*This pathtemp is for storing the path temporarily
-    within the loop as the loop encounters files with different extensions
-    And found path is copied to the path variable*/
-    
+      within the loop as the loop encounters files with different extensions
+      And found path is copied to the path variable*/
+
     strcpy(path,p);
     char pathtemp[100];
 
     //An iterative condition for iterating through the arguments creating targets..
 
-    for(int i=1;i<argc;i++)
+    for(int i=optind;i<argc;i++)
     {
         strcpy(pathtemp,path);
 
