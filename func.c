@@ -30,21 +30,24 @@ char ** FILE_BUF_ALLOC(struct info FILE_INFO)
     char ** FILE_BUF;
     int i;
     FILE_BUF=malloc(sizeof(char *)*FILE_INFO.Newline_Count);
-    if(FILE_BUF==NULL){
+    if(FILE_BUF==NULL)
+    {
         fprintf(stderr,"Memory allocation failed\n");
         return NULL;
     }
-    for(i=0;i<FILE_INFO.Newline_Count;i++){
+    for(i=0;i<FILE_INFO.Newline_Count;i++)
+    {
         FILE_BUF[i]=malloc(FILE_INFO.Final_Count+1);
         if(FILE_BUF[i]==NULL)
         {
             fprintf(stderr,"Memory allocation failed inside\n");
             
             //frees the previously allocated memory if failed in the middle
-
+            
             for(int j=i;j!=0;j--)
                 free(FILE_BUF[j]);
             return NULL;
+
         }
     }
     return FILE_BUF;
@@ -55,6 +58,7 @@ char ** FILE_BUF_ALLOC(struct info FILE_INFO)
 
 struct info file_info(FILE *fp)
 {
+
     //Calculating no of lines and maximum line size
 
     int Reg_Count=0,Final_Count=0,Newline_Count=0,CHARBUF;
@@ -92,7 +96,8 @@ void word_copy(FILE *fp,char ** FILE_BUF,struct info temp)
 //Function that writes into the file from the buffer
 void word_write(FILE * fp1,char ** FILE_BUF,struct info temp)
 {
-    //printf("Writing the template file\n");
+    if(verbose==1)
+        printf("Writing the template file\n");
     for(int i=0;i<temp.Newline_Count;i++)
     {
         fprintf(fp1,"%s",FILE_BUF[i]);

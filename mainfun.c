@@ -13,7 +13,7 @@ void main(int argc,char*argv[])
     //arg parsing
     int c;
     int opterr=0;
-    while((c=getopt(argc,argv,"ihv"))!=-1)
+    while((c=getopt(argc,argv,"ihv:"))!=-1)
     {
         switch(c)
         {
@@ -25,6 +25,7 @@ void main(int argc,char*argv[])
                 break;
             case 'v':
                 verbose=1;
+                optind=optind-1;
                 break;
             case '?':
                 if(optopt=='v')
@@ -66,7 +67,6 @@ void main(int argc,char*argv[])
         return;
     }
     word_copy(CONF_FILE,CONF_FILE_BUF,CONF_INFO);
-   // print(CONF_FILE_BUF,CONF_INFO);
     p=param_read(CONF_FILE_BUF,"TEMP_PATH",CONF_INFO);
     if(p==NULL)
     {
@@ -89,6 +89,7 @@ void main(int argc,char*argv[])
         strcpy(pathtemp,path);
 
         //Checking if the file is already present if not continues to check next argument
+
         if(fopen(argv[i],"r"))
         {
             fprintf(stderr,"file %s is already present\n",argv[i]);
@@ -110,8 +111,10 @@ void main(int argc,char*argv[])
                 strcpy(ext,p);
 
                 TEMP_FILE_P=fopen(strcat(strcat(pathtemp,p),"tmp"),"r");
+                if(verbose==1)
                 fprintf(stdout,"%s\n",pathtemp);
-                if(TEMP_FILE_P==NULL){
+                if(TEMP_FILE_P==NULL)
+                {
                     fprintf(stderr,"Template not present..\n");
                     return;
                 }
@@ -144,6 +147,7 @@ void main(int argc,char*argv[])
 
         DEST_FILE_P=fopen(argv[i],"w");
         word_write(DEST_FILE_P,buf,temp);
+        if(verbose==1)
         fprintf(stdout,"The file %s is created\n",argv[i]);
 
         //closing File pointers
